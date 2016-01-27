@@ -5,7 +5,7 @@ from pyspark.sql import Row
 import sys
 import pyspark_cassandra
 
-Conf = SparkConf().setMaster("local[*]")
+Conf = SparkConf()#.setMaster("local[*]")
 sc = SparkContext(conf=Conf)
 sqlContext = SQLContext(sc)
 
