@@ -14,8 +14,8 @@ class Producer(object):
     self.complaint = []
 
   def load_ids(self):
-    zipcode_path = "/Users/soniamehta/Desktop/zipcodes.txt"
-    complaint_path = "/Users/soniamehta/Desktop/complaint_type.txt"
+    zipcode_path = "/home/ubuntu/repos/project311/kafka/zipcodes.txt"
+    complaint_path = "/home/ubuntu/repos/project311/kafka/complaint_type.txt"
     with open(zipcode_path, 'r') as f1:
       for line in f1:
         if line:
