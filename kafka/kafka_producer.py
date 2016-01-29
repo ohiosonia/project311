@@ -17,9 +17,8 @@ class Producer(object):
     zipcode_path = "/home/ubuntu/repos/project311/kafka/zipcodes.txt"
     complaint_path = "/home/ubuntu/repos/project311/kafka/complaint_type.txt"
     with open(zipcode_path, 'r') as f1:
-      for line in f1:l
-        if line:
-          print line
+      for line in f:
+        if line != "":
             self.zipcode.append(line.strip())
       
     with open(complaint_path) as f2:
