@@ -20,7 +20,7 @@ class Producer(object):
       for line in f1:l
         if line:
           print line
-          self.zipcode.append(line.strip())
+            self.zipcode.append(line.strip())
       
     with open(complaint_path) as f2:
       for line in f2:
