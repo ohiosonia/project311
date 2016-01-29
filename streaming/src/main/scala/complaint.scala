@@ -10,12 +10,13 @@ import org.apache.spark.sql._
 object PriceDataStreaming {
   def main(args: Array[String]) {
 
-    val brokers = "ec2-52-71-164-204.us-east-1.compute.amazonaws.com:9092"
+    val brokers = "52.71.164.204:9092"
     val topics = "complaint"
     val topicsSet = topics.split(",").toSet
 
     // Create context with 2 second batch interval
     val sparkConf = new SparkConf().setAppName("complaint_data")
+//    val sqlContext = new SQLContext()
     val ssc = new StreamingContext(sparkConf, Seconds(2))
 
     // Create direct kafka stream with brokers and topics
@@ -31,12 +32,12 @@ object PriceDataStreaming {
         val lines = rdd.map(_._2)
         val ticksDF = lines.map( x => {
                                   val tokens = x.split(";")
-                                  Tick(tokens(0), tokens(2).toDouble, tokens(3).toInt)}).toDF()
+                                  Tick(tokens(0), tokens(2).toInt, tokens(3))}).toDF()
         // val ticks_per_source_DF = ticksDF.groupBy("source")
         //                         .agg("price" -> "avg", "volume" -> "sum")
         //                         .orderBy("source")
 
-        val ticks_per_source_DF = ticksDF.groupBy("complaint_type").count().collect()
+        val ticks_per_source_DF = ticksDF.groupBy("source").agg("zipcode" -> "sum").orderBy("source")
         ticks_per_source_DF.show()
     }
 
