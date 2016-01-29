@@ -20,7 +20,6 @@ class Producer(object):
       for line in f1:
         if line != "":
             self.zipcode.append(line.strip())
-      
     with open(complaint_path) as f2:
       for line in f2:
         if line != "":
@@ -34,7 +33,7 @@ class Producer(object):
       complaint_field = random.choice(self.complaint)
       str_fmt = "{};{};{};{}"
       message_info = str_fmt.format(source_symbol, time_field, zipcode_field, complaint_field)
-      print message_info
+      # print message_info
       self.producer.send_messages('complaint', source_symbol, message_info)
       msg_cnt += 1
 
