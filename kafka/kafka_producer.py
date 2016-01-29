@@ -17,7 +17,7 @@ class Producer(object):
     zipcode_path = "/home/ubuntu/repos/project311/kafka/zipcodes.txt"
     complaint_path = "/home/ubuntu/repos/project311/kafka/complaint_type.txt"
     with open(zipcode_path, 'r') as f1:
-      for line in f1:
+      for line in f1:l
         if line:
           print line
           self.zipcode.append(line.strip())
@@ -35,8 +35,8 @@ class Producer(object):
       complaint_field = random.choice(self.complaint)
       str_fmt = "{};{};{};{}"
       message_info = str_fmt.format(source_symbol, time_field, zipcode_field, complaint_field)
-      print message_info
-      #self.producer.send_messages('complaint', source_symbol, message_info)
+      # print message_info
+      self.producer.send_messages('complaint', source_symbol, message_info)
       msg_cnt += 1
 
 
