@@ -51,7 +51,7 @@ object PriceDataStreaming {
   }
 }
 
-case class Tick(source: String, zipcode: Int, complaint_type: String)
+case class Tick(source: String, complaint: String, complaint_type: String)
 
 /** Lazily instantiated singleton instance of SQLContext */
 object SQLContextSingleton {
