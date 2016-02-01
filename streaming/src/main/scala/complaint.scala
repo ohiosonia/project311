@@ -1,5 +1,4 @@
 import kafka.serializer.StringDecoder
-
 import org.apache.spark.streaming._
 import org.apache.spark.streaming.kafka._
 import org.apache.spark.SparkConf
@@ -37,8 +36,13 @@ object PriceDataStreaming {
         //                         .agg("price" -> "avg", "volume" -> "sum")
         //                         .orderBy("source")
 
-        val ticks_per_source_DF = ticksDF.groupBy("source").agg("zipcode" -> "sum").orderBy("source")
-        ticks_per_source_DF.show()
+        val ticks_per_source_DF = ticksDF.groupBy("complaint").count().collect()//groupBy("source").agg("zipcode" -> "sum").orderBy("source")
+        ticks_per_source_DF.collect()
+        var ticks_with_time = ticks_per_source_DF.map(x => (x(0),current_time,x(1)))
+
+        // rdd.sparkContext.parallelize(ticks_with_time).saveToCassandra("art_pin_log", "artwork_count", 
+        //                     SomeColumns("art_id","event_time", "pin_count"),
+        //                     writeConf = WriteConf(ttl = TTLOption.constant(30)))
     }
 
     // Start the computation
