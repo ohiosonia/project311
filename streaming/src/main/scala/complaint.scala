@@ -5,6 +5,15 @@ import org.apache.spark.SparkConf
 import org.apache.spark.rdd.RDD
 import org.apache.spark.SparkContext
 import org.apache.spark.sql._
+import com.datastax.spark.connector._
+import com.datastax.spark.connector.streaming._
+import com.datastax.spark.connector.cql.{ColumnDef, RegularColumn, TableDef}
+import com.datastax.spark.connector.types.IntType
+import com.datastax.spark.connector.writer._
+import org.apache.cassandra.serializers.TimestampSerializer
+import java.util.Date
+import org.joda.time.DateTime
+import org.joda.time.format.DateTimeFormat
 
 object PriceDataStreaming {
   def main(args: Array[String]) {
@@ -15,7 +24,6 @@ object PriceDataStreaming {
 
     // Create context with 2 second batch interval
     val sparkConf = new SparkConf().setAppName("complaint_data")
-//    val sqlContext = new SQLContext()
     val ssc = new StreamingContext(sparkConf, Seconds(2))
 
     // Create direct kafka stream with brokers and topics
@@ -28,21 +36,19 @@ object PriceDataStreaming {
         val sqlContext = SQLContextSingleton.getInstance(rdd.sparkContext)
         import sqlContext.implicits._
 
+	val current_time = TimestampFormatter.format(new Date())
         val lines = rdd.map(_._2)
         val ticksDF = lines.map( x => {
                                   val tokens = x.split(";")
                                   Tick(tokens(0), tokens(2).toInt, tokens(3))}).toDF()
-        // val ticks_per_source_DF = ticksDF.groupBy("source")
-        //                         .agg("price" -> "avg", "volume" -> "sum")
-        //                         .orderBy("source")
-
-        val ticks_per_source_DF = ticksDF.groupBy("complaint").count().collect()//groupBy("source").agg("zipcode" -> "sum").orderBy("source")
-        ticks_per_source_DF.collect()
+                                  // Tick(tokens(0), tokens(2).toInt, tokens(3))}).toDF()
+        val ticks_per_source_DF = ticksDF.groupBy("source").agg("zipcode" -> "sum").orderBy("source").collect()
+        // ticks_per_source_DF.collect()
         var ticks_with_time = ticks_per_source_DF.map(x => (x(0),current_time,x(1)))
 
-        // rdd.sparkContext.parallelize(ticks_with_time).saveToCassandra("art_pin_log", "artwork_count", 
-        //                     SomeColumns("art_id","event_time", "pin_count"),
-        //                     writeConf = WriteConf(ttl = TTLOption.constant(30)))
+        rdd.sparkContext.parallelize(ticks_with_time).saveToCassandra("playground", "live_complaints", 
+                            SomeColumns("complaint_type","time", "total"),
+                            writeConf = WriteConf(ttl = TTLOption.constant(30)))
     }
 
     // Start the computation
@@ -51,7 +57,7 @@ object PriceDataStreaming {
   }
 }
 
-case class Tick(source: String, complaint: String, complaint_type: String)
+case class Tick(source: String, zipcode: Int, complaint_type: String)
 
 /** Lazily instantiated singleton instance of SQLContext */
 object SQLContextSingleton {
@@ -64,4 +70,12 @@ object SQLContextSingleton {
     }
     instance
   }
+}
+
+object TimestampFormatter {
+
+  private val TimestampPattern = "yyyy-MM-dd'T'HH:mm:ssZ"
+
+  def format(date: Date): String =
+    DateTimeFormat.forPattern(TimestampPattern).print(new DateTime(date.getTime))
 }
