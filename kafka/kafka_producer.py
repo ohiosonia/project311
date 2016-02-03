@@ -34,7 +34,7 @@ class Producer(object):
       str_fmt = "{};{};{};{}"
       message_info = str_fmt.format(source_symbol, time_field, zipcode_field, complaint_field)
       print message_info
-      self.producer.send_messages('complaint', source_symbol, message_info)
+      self.producer.send_messages('complaints', source_symbol, message_info)
       msg_cnt += 1
 
 
