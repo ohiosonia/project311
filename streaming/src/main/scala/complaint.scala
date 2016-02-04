@@ -19,7 +19,7 @@ object PriceDataStreaming {
   def main(args: Array[String]) {
 
     val brokers = "52.71.164.204:9092"
-    val topics = "complaint"
+    val topics = "complaints"
     val topicsSet = topics.split(",").toSet
 
     // Create context with 2 second batch interval
@@ -31,6 +31,9 @@ object PriceDataStreaming {
     val messages = KafkaUtils.createDirectStream[String, String, StringDecoder, StringDecoder](ssc, kafkaParams, topicsSet)
 
     // Get the lines and show results
+
+    messages.print
+
     messages.foreachRDD { rdd =>
 
         val sqlContext = SQLContextSingleton.getInstance(rdd.sparkContext)
@@ -40,14 +43,11 @@ object PriceDataStreaming {
         val lines = rdd.map(_._2)
         val ticksDF = lines.map( x => {
                                   val tokens = x.split(";")
-                                  Tick(tokens(0), tokens(2).toInt, tokens(3))}).toDF()
-                                  // Tick(tokens(0), tokens(2).toInt, tokens(3))}).toDF()
-        val ticks_per_source_DF = ticksDF.groupBy("source").agg("zipcode" -> "sum").orderBy("source").collect()
-        // ticks_per_source_DF.collect()
-        var ticks_with_time = ticks_per_source_DF.map(x => (x(0),current_time,x(1)))
-
-        rdd.sparkContext.parallelize(ticks_with_time).saveToCassandra("playground", "live_complaints", 
-                            SomeColumns("complaint_type","time", "total"),
+                                  Tick(tokens(2).toInt, tokens(3))}).toDF()
+        val ticks_per_source_DF = ticksDF.groupBy("zipcode").count().collect()
+        var ticks_with_time = ticks_per_source_DF.map(x => (x(0),x(1)))
+        rdd.sparkContext.parallelize(ticks_with_time).saveToCassandra("playground", "live_complaints2", 
+                            SomeColumns("zipcode","total"),
                             writeConf = WriteConf(ttl = TTLOption.constant(30)))
     }
 
@@ -57,7 +57,7 @@ object PriceDataStreaming {
   }
 }
 
-case class Tick(source: String, zipcode: Int, complaint_type: String)
+case class Tick(zipcode: Int, complaint_type: String)
 
 /** Lazily instantiated singleton instance of SQLContext */
 object SQLContextSingleton {

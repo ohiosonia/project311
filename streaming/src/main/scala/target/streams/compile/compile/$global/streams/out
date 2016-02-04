@@ -1,0 +1,97 @@
+[0m[[0mdebug[0m] [0m[0m
+[0m[[0mdebug[0m] [0mInitial source changes: [0m
+[0m[[0mdebug[0m] [0m	removed:Set()[0m
+[0m[[0mdebug[0m] [0m	added: Set(/home/ubuntu/repos/project311/streaming/src/main/scala/complaint.scala)[0m
+[0m[[0mdebug[0m] [0m	modified: Set()[0m
+[0m[[0mdebug[0m] [0mRemoved products: Set()[0m
+[0m[[0mdebug[0m] [0mExternal API changes: API Changes: Set()[0m
+[0m[[0mdebug[0m] [0mModified binary dependencies: Set()[0m
+[0m[[0mdebug[0m] [0mInitial directly invalidated sources: Set(/home/ubuntu/repos/project311/streaming/src/main/scala/complaint.scala)[0m
+[0m[[0mdebug[0m] [0m[0m
+[0m[[0mdebug[0m] [0mSources indirectly invalidated by:[0m
+[0m[[0mdebug[0m] [0m	product: Set()[0m
+[0m[[0mdebug[0m] [0m	binary dep: Set()[0m
+[0m[[0mdebug[0m] [0m	external source: Set()[0m
+[0m[[0mdebug[0m] [0mAll initially invalidated sources: Set(/home/ubuntu/repos/project311/streaming/src/main/scala/complaint.scala)[0m
+[0m[[0mdebug[0m] [0mRecompiling all 1 sources: invalidated sources (1) exceeded 50.0% of all sources[0m
+[0m[[0minfo[0m] [0mCompiling 1 Scala source to /home/ubuntu/repos/project311/streaming/src/main/scala/target/scala-2.10/classes...[0m
+[0m[[0mdebug[0m] [0mGetting compiler-interface from component compiler for Scala 2.10.4[0m
+[0m[[0mdebug[0m] [0mGetting compiler-interface from component compiler for Scala 2.10.4[0m
+[0m[[0mdebug[0m] [0mRunning cached compiler 684c280, interfacing (CompilerInterface) with Scala compiler version 2.10.4[0m
+[0m[[0mdebug[0m] [0mCalling Scala compiler with arguments  (CompilerInterface):[0m
+[0m[[0mdebug[0m] [0m	-bootclasspath[0m
+[0m[[0mdebug[0m] [0m	/usr/lib/jvm/java-8-oracle/jre/lib/resources.jar:/usr/lib/jvm/java-8-oracle/jre/lib/rt.jar:/usr/lib/jvm/java-8-oracle/jre/lib/sunrsasign.jar:/usr/lib/jvm/java-8-oracle/jre/lib/jsse.jar:/usr/lib/jvm/java-8-oracle/jre/lib/jce.jar:/usr/lib/jvm/java-8-oracle/jre/lib/charsets.jar:/usr/lib/jvm/java-8-oracle/jre/lib/jfr.jar:/usr/lib/jvm/java-8-oracle/jre/classes:/home/ubuntu/.sbt/boot/scala-2.10.4/lib/scala-library.jar[0m
+[0m[[0mdebug[0m] [0m	-classpath[0m
+[0m[[0mdebug[0m] [0m	/home/ubuntu/repos/project311/streaming/src/main/scala/target/scala-2.10/classes[0m
+[0m[[31merror[0m] [0m/home/ubuntu/repos/project311/streaming/src/main/scala/complaint.scala:1: not found: object kafka[0m
+[0m[[31merror[0m] [0mimport kafka.serializer.StringDecoder[0m
+[0m[[31merror[0m] [0m       ^[0m
+[0m[[31merror[0m] [0m/home/ubuntu/repos/project311/streaming/src/main/scala/complaint.scala:2: object apache is not a member of package org[0m
+[0m[[31merror[0m] [0mimport org.apache.spark.streaming._[0m
+[0m[[31merror[0m] [0m           ^[0m
+[0m[[31merror[0m] [0m/home/ubuntu/repos/project311/streaming/src/main/scala/complaint.scala:3: object apache is not a member of package org[0m
+[0m[[31merror[0m] [0mimport org.apache.spark.streaming.kafka._[0m
+[0m[[31merror[0m] [0m           ^[0m
+[0m[[31merror[0m] [0m/home/ubuntu/repos/project311/streaming/src/main/scala/complaint.scala:4: object apache is not a member of package org[0m
+[0m[[31merror[0m] [0mimport org.apache.spark.SparkConf[0m
+[0m[[31merror[0m] [0m           ^[0m
+[0m[[31merror[0m] [0m/home/ubuntu/repos/project311/streaming/src/main/scala/complaint.scala:5: object apache is not a member of package org[0m
+[0m[[31merror[0m] [0mimport org.apache.spark.rdd.RDD[0m
+[0m[[31merror[0m] [0m           ^[0m
+[0m[[31merror[0m] [0m/home/ubuntu/repos/project311/streaming/src/main/scala/complaint.scala:6: object apache is not a member of package org[0m
+[0m[[31merror[0m] [0mimport org.apache.spark.SparkContext[0m
+[0m[[31merror[0m] [0m           ^[0m
+[0m[[31merror[0m] [0m/home/ubuntu/repos/project311/streaming/src/main/scala/complaint.scala:7: object apache is not a member of package org[0m
+[0m[[31merror[0m] [0mimport org.apache.spark.sql._[0m
+[0m[[31merror[0m] [0m           ^[0m
+[0m[[31merror[0m] [0m/home/ubuntu/repos/project311/streaming/src/main/scala/complaint.scala:8: object datastax is not a member of package com[0m
+[0m[[31merror[0m] [0mimport com.datastax.spark.connector._[0m
+[0m[[31merror[0m] [0m           ^[0m
+[0m[[31merror[0m] [0m/home/ubuntu/repos/project311/streaming/src/main/scala/complaint.scala:9: object datastax is not a member of package com[0m
+[0m[[31merror[0m] [0mimport com.datastax.spark.connector.streaming._[0m
+[0m[[31merror[0m] [0m           ^[0m
+[0m[[31merror[0m] [0m/home/ubuntu/repos/project311/streaming/src/main/scala/complaint.scala:10: object datastax is not a member of package com[0m
+[0m[[31merror[0m] [0mimport com.datastax.spark.connector.cql.{ColumnDef, RegularColumn, TableDef}[0m
+[0m[[31merror[0m] [0m           ^[0m
+[0m[[31merror[0m] [0m/home/ubuntu/repos/project311/streaming/src/main/scala/complaint.scala:11: object datastax is not a member of package com[0m
+[0m[[31merror[0m] [0mimport com.datastax.spark.connector.types.IntType[0m
+[0m[[31merror[0m] [0m           ^[0m
+[0m[[31merror[0m] [0m/home/ubuntu/repos/project311/streaming/src/main/scala/complaint.scala:12: object datastax is not a member of package com[0m
+[0m[[31merror[0m] [0mimport com.datastax.spark.connector.writer._[0m
+[0m[[31merror[0m] [0m           ^[0m
+[0m[[31merror[0m] [0m/home/ubuntu/repos/project311/streaming/src/main/scala/complaint.scala:13: object apache is not a member of package org[0m
+[0m[[31merror[0m] [0mimport org.apache.cassandra.serializers.TimestampSerializer[0m
+[0m[[31merror[0m] [0m           ^[0m
+[0m[[31merror[0m] [0m/home/ubuntu/repos/project311/streaming/src/main/scala/complaint.scala:15: object joda is not a member of package org[0m
+[0m[[31merror[0m] [0mimport org.joda.time.DateTime[0m
+[0m[[31merror[0m] [0m           ^[0m
+[0m[[31merror[0m] [0m/home/ubuntu/repos/project311/streaming/src/main/scala/complaint.scala:16: object joda is not a member of package org[0m
+[0m[[31merror[0m] [0mimport org.joda.time.format.DateTimeFormat[0m
+[0m[[31merror[0m] [0m           ^[0m
+[0m[[31merror[0m] [0m/home/ubuntu/repos/project311/streaming/src/main/scala/complaint.scala:26: not found: type SparkConf[0m
+[0m[[31merror[0m] [0m    val sparkConf = new SparkConf().setAppName("complaint_data")[0m
+[0m[[31merror[0m] [0m                        ^[0m
+[0m[[31merror[0m] [0m/home/ubuntu/repos/project311/streaming/src/main/scala/complaint.scala:27: not found: type StreamingContext[0m
+[0m[[31merror[0m] [0m    val ssc = new StreamingContext(sparkConf, Seconds(2))[0m
+[0m[[31merror[0m] [0m                  ^[0m
+[0m[[31merror[0m] [0m/home/ubuntu/repos/project311/streaming/src/main/scala/complaint.scala:31: not found: value KafkaUtils[0m
+[0m[[31merror[0m] [0m    val messages = KafkaUtils.createDirectStream[String, String, StringDecoder, StringDecoder](ssc, kafkaParams, topicsSet)[0m
+[0m[[31merror[0m] [0m                   ^[0m
+[0m[[31merror[0m] [0m/home/ubuntu/repos/project311/streaming/src/main/scala/complaint.scala:65: not found: type SQLContext[0m
+[0m[[31merror[0m] [0m  @transient  private var instance: SQLContext = _[0m
+[0m[[31merror[0m] [0m                                    ^[0m
+[0m[[31merror[0m] [0m/home/ubuntu/repos/project311/streaming/src/main/scala/complaint.scala:67: not found: type SQLContext[0m
+[0m[[31merror[0m] [0m  def getInstance(sparkContext: SparkContext): SQLContext = {[0m
+[0m[[31merror[0m] [0m                                               ^[0m
+[0m[[31merror[0m] [0m/home/ubuntu/repos/project311/streaming/src/main/scala/complaint.scala:67: not found: type SparkContext[0m
+[0m[[31merror[0m] [0m  def getInstance(sparkContext: SparkContext): SQLContext = {[0m
+[0m[[31merror[0m] [0m                                ^[0m
+[0m[[31merror[0m] [0m/home/ubuntu/repos/project311/streaming/src/main/scala/complaint.scala:69: not found: type SQLContext[0m
+[0m[[31merror[0m] [0m      instance = new SQLContext(sparkContext)[0m
+[0m[[31merror[0m] [0m                     ^[0m
+[0m[[31merror[0m] [0m/home/ubuntu/repos/project311/streaming/src/main/scala/complaint.scala:80: not found: value DateTimeFormat[0m
+[0m[[31merror[0m] [0m    DateTimeFormat.forPattern(TimestampPattern).print(new DateTime(date.getTime))[0m
+[0m[[31merror[0m] [0m    ^[0m
+[0m[[31merror[0m] [0m23 errors found[0m
+[0m[[0mdebug[0m] [0mCompilation failed (CompilerInterface)[0m
+[0m[[31merror[0m] [0m(compile:[31mcompile[0m) Compilation failed[0m
