@@ -70,15 +70,13 @@ row_data = csv_data.map(lambda p: Row(
 )
 
 interactions_df = sqlContext.createDataFrame(row_data)
-interactions_df.registerTempTable("complaint_by_zipcode")
+interactions_df.registerTempTable("zip_code_complaints")
 
 complaints = sqlContext.sql("""
-    SELECT complaint_type, incident_zip, count(*) total FROM complaint_by_zipcode WHERE length(incident_zip) = 5 group by complaint_type, incident_zip
+    SELECT incident_zip, count(*) total from zip_code_complaints group by incident_zip
 """)
-
 
 complaints.show()
 
-
-complaints.write.format("org.apache.spark.sql.cassandra").options(table ="complaint_by_zipcode", keyspace = "playground").save(mode='append')
+complaints.write.format("org.apache.spark.sql.cassandra").options(table ="zip_code_complaints", keyspace = "playground").save(mode='append')
 
