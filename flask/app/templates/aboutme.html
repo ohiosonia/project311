@@ -119,6 +119,7 @@
     </nav>
     {% block home %}{% endblock %}
     {% block zipcodeComplaint %}{% endblock %}
+    {% block aboutme %}{% endblock %}
     <div class="container">
 
       <div class="starter-template">
@@ -154,39 +155,3 @@
     </script>
   </body>
 </html>
-
-<form class="form-group" action="/typesofcalls" method="POST">
-        
-        
-        <!--<input type="text" class="form-control" name="zipcodeComplaints" placeholder="zipcodeComplaints" required autofocus>
-        <br/>-->
-        <div class="form-group col-lg-6">
-          <label for="incident_zip">Choose Zip Code</label>
-            <select class="form-control" name="incident_zip">
-              <option value="Select Zip Code">Select Zip Code</option>
-              <option value="11237">11237</option>
-              <option value="10011">10011</option>
-              <option value="10012">10012</option>
-              <option value="10013">10013</option>
-              <option value="10014">10014</option>
-              <option value="10015">10015</option>
-              <option value="10016">10016</option>
-              <option value="10017">10017</option>
-              <option value="10018">10018</option>
-            </select>
-          </label>
-        </div>
-
-        <!--<input type="text" name="10016" class="form-control" placeholder="Enter Zipcode" required autofocus>-->
-        <br/>
-        
-        <input type="submit" name="form-control" value="Show me the all the complaints" class="btn btn-lg btn-success">
-      </form>
-
-	<div class="jumbotron">
-		{% for data in results %}
-		<CENTER><h2>Type of Complaint:   {{data.complaint_type}}</h2></CENTER>
-		<CENTER><h2>Total Complaints:   {{data.total}}</h2></CENTER>
-		{% endfor %}
-	</div>
-

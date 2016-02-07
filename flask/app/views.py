@@ -5,7 +5,7 @@ from flask import render_template
 from flask import Flask
 from flask import request
 
-cluster = Cluster(['172.31.0.134']) 
+cluster = Cluster(['ec2-52-71-164-204.compute-1.amazonaws.com']) 
 session = cluster.connect('playground')
 
 # Change tabs
@@ -15,7 +15,13 @@ def index():
    title = "The 411 on the 311"
    return render_template("home.html", title = title)
 
-@app.route('/zipcodeComplaints', methods=['GET','POST'])
+@app.route("/aboutme")
+def index():
+  title = "The 411 on the 311"
+  return render_template("aboutme.html", title = title)
+
+#@app.route('/typesofcalls')
+@app.route('/typesofcalls', methods=['GET','POST'])
 def zipcodeComplaints():
     if request.method=="GET":
         return render_template('zipcodeComplaints.html')
@@ -30,6 +36,7 @@ def zipcodeComplaints():
     for val in response:
        response_list.append(val)
     jsonresponse = [{"complaint_type": x.complaint_type, "incident_zip": x.incident_zip, "total":x.total} for x in response_list]
-    return jsonify(data=jsonresponse)
+    return render_template('zipcodeComplaints.html', results = jsonresponse)
+    #return jsonify(data=jsonresponse)
 
 
