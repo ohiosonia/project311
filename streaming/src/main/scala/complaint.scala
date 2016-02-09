@@ -14,6 +14,7 @@ import org.apache.cassandra.serializers.TimestampSerializer
 import java.util.Date
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
+import java.sql.Timestamp
 
 object PriceDataStreaming {
   def main(args: Array[String]) {
@@ -41,12 +42,24 @@ object PriceDataStreaming {
 
         val current_time = TimestampFormatter.format(new Date())
         val lines = rdd.map(_._2)
-        val ticksDF = lines.map( x => {
-                                  val tokens = x.split(";")
-                                  Tick(tokens(2).toInt, tokens(3))}).toDF()
-        val ticks_per_source_DF = ticksDF.groupBy("zipcode").count().collect()
-        var ticks_with_time = ticks_per_source_DF.map(x => (x(0),x(1)))
-        rdd.sparkContext.parallelize(ticks_with_time).saveToCassandra("playground", "live_complaints2",
+	println("lines.first =  "   +  lines.first)
+
+	val sparkformat = new java.text.SimpleDateFormat("yyyyMMdd HHmmssZ") 
+	val cassandraformat = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss zzz")
+	val ticksDF = lines.map( x => {
+                                 val tokens = x.split(";")
+				  //Tick(tokens(2).toInt,TimestampFormatter.format( DateTimeFormat.forPattern("yyyyMMdd'T'HHmmss").parseDateTime(tokens(1))))}).toDF()
+				//Tick(tokens(2).toInt, tokens(1))}).toDF()
+			val mydate = sparkformat.parse(tokens(1))
+		Tick(tokens(2).toInt,mydate.getTime)}).toDF()
+	//println("%s %s".format(ticksDF(0), ticksDF(1)))
+	println("ticksDF  =   " + ticksDF)
+	val ticks_per_source_DF = ticksDF.groupBy("zipcode").count().collect()
+	var ticks_with_time = ticks_per_source_DF.map(x => (x(0),x(1)))
+
+	//ticks_with_time.foreach(x=> println)
+
+	rdd.sparkContext.parallelize(ticks_with_time).saveToCassandra("playground", "live_complaints2",
                             SomeColumns("zipcode","event_time"),
                             writeConf = WriteConf(ttl = TTLOption.constant(30)))
     }
@@ -57,7 +70,7 @@ object PriceDataStreaming {
   }
 }
 
-case class Tick(zipcode: Int, event_time: String)
+case class Tick(zipcode: Int, event_time: Long)
 
 /** Lazily instantiated singleton instance of SQLContext */
 object SQLContextSingleton {
@@ -74,9 +87,10 @@ object SQLContextSingleton {
 
 object TimestampFormatter {
 
-  private val TimestampPattern = "yyyy-MM-dd'T'HH:mm:ssZ"
-
-  def format(date: Date): String =
+  private val TimestampPattern = "yyyy-MM-dd HH:mm:ss+0000"
+   // def format(date: Date): String =
+   // DateTimeFormat.forPattern(TimestampPattern).print(new DateTime(date))
+ def format(date: Date): String =
     DateTimeFormat.forPattern(TimestampPattern).print(new DateTime(date.getTime))
 }
 

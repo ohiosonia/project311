@@ -28,7 +28,7 @@ class Producer(object):
   def produce_msgs(self, source_symbol):
     msg_cnt = 0
     while True:
-      time_field = datetime.now().strftime("%Y%m%d %H%M%S")
+      time_field = datetime.now().strftime("%Y%m%d%H%M%S")
       zipcode_field = random.choice(self.zipcode)
       complaint_field = random.choice(self.complaint)
       str_fmt = "{};{};{};{}"
