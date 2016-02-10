@@ -8,7 +8,7 @@ from kafka.client import KafkaClient
 from kafka.consumer import KafkaConsumer
 import datetime
 client = KafkaClient('52.70.92.128')
-consumer = KafkaConsumer('complaint', group_id=0, bootstrap_servers=['localhost:9092'])
+consumer = KafkaConsumer('complaints', group_id=0, bootstrap_servers=['localhost:9092'])
 #date1 = datetime.datetime.now()
 
 for message in consumer:
