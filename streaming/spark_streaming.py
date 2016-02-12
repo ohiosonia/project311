@@ -23,24 +23,25 @@ if __name__ == "__main__":
    # get broadcast variables from cassandra
    count = sc.accumulator(0)
    # stream every 5 seconds
-   ssc = StreamingContext(sc, 1)
+   ssc = StreamingContext(sc, 10)
 
-   print "-----\n",ssc, count 
+   #print "-----\n",ssc, count 
    try:
        data = KafkaUtils.createStream(ssc, "%s:2181"%kafka_ip, "complaints",{"complaints":1})
    except Exception as e:
        print "--- exception----", e
-   print "--- data --", data, data.pprint()
-   print "test"
+   #print "--- data --", data, data.pprint()
+   
    parsed = data.map(lambda (in_tuple): convert(in_tuple[0], in_tuple[1]))
-   parsed.pprint()
-   my_row = parsed.map(lambda x: {
-   "source": x[0],
-   "time": x[1],
-   "zipcode": x[2],
-   "complaint": x[3]
-    })
-   my_row.saveToCassandra("playground", "live_complaints2" )# save RDD to cassandra
+   #print "--- map ---\n"
+   #parsed.pprint()
+   my_row = parsed.map(lambda x: (x[1]+'_'+x[2],1))
+   #my_row.pprint()
+   my = my_row.reduceByKey(lambda a, b: a + b)
+   my.pprint()
+   my_new = my.map(lambda x:  (x[0].split('_')[0], x[0].split('_')[1], x[1]))
+   #my_new.pprint()
+   my_new.saveToCassandra("playground", "live_complaints2" )# save RDD to cassandra
    ssc.start() # start the process
    ssc.awaitTermination()
 
