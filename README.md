@@ -9,7 +9,7 @@ I have two streams of data: historical and (near) real-time. After ingesting thi
 ## Front-End Results
 I have a created a simple Flask app that displays the results from my data pipeline. The app is available at www.sonia.nyc and a video demonstration of the site is available [here] (https://youtu.be/pQgADLRgwkE).
 
-## How to use this repo
-
-
-
+## How to Use this Repo
+* The historical stream is documented in the [historical] (https://github.com/smehta930/project311/tree/master/historical) folder.
+* The data I randomly generated is available in the [kafka] (https://github.com/smehta930/project311/tree/master/kafka) folder. The Spark Submission processing job is also available in this folder.
+* I also tested submitting my live data in Spark via Scala. This is available in the [streaming] (https://github.com/smehta930/project311/tree/master/streaming) folder.
