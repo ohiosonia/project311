@@ -7,7 +7,7 @@ I have two streams of data: historical and (near) real-time. After ingesting thi
 
 
 ## Front-End Results
-I have a created a simple Flask app that displays the results from my data pipeline. The app is available at www.sonia.nyc
+I have a created a simple Flask app that displays the results from my data pipeline. The app is available at www.sonia.nyc and a video demonstration of the site is available [here] (https://youtu.be/pQgADLRgwkE).
 
 ## How to use this repo
 
