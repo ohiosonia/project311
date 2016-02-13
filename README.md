@@ -1,16 +1,25 @@
 # The 411 on the 311
 This project was a proof of concept to create a data pipeline for my Insight Data Engineering project. Specifically, I elected to base this project off of NYC 311 data. For the purposes of this project, the data has been either modified or self-engineered, so the results are fictious.
 
+![alt text](https://raw.githubusercontent.com/smehta930/project311/master/img/homepage.png "Historical Data")
+
+## Table of Contents
+- <a href= "https://github.com/smehta930/project311/blob/master/README.md#project-overview">Project Overview</a>
+- <a href= "https://github.com/smehta930/project311/blob/master/README.md#historical-data">Historical Data</a>
+- <a href= "https://github.com/smehta930/project311/blob/master/README.md#(near)-real-time-data">(Near) Real Time Data</a>
+- <a href= "https://github.com/smehta930/project311/blob/master/README.md#front-end-results">Front End Results</a>
+- <a href= "https://github.com/smehta930/project311/blob/master/README.md#how-to-use-this-repo">How to Use this Repo</a>
+
 ## Project Overview
 I have two streams of data: historical and (near) real-time. After ingesting this data and performing some processing in Spark and Spark Streaming (for historical and real-time, respectively), I use Cassandra as my key-value store. A full diagram of my pipeline is below:
 
 #### Historical Data: 
-![alt text](https://raw.githubusercontent.com/smehta930/project311/master/historical/historical.png "Historical Data")
+![alt text](https://raw.githubusercontent.com/smehta930/project311/master/img/historical.png "Historical Data")
 
 #### (Near) Real Time Data:
-![alt text](https://raw.githubusercontent.com/smehta930/project311/master/kafka/real_time.png "Near Real Time Data")
+![alt text](https://raw.githubusercontent.com/smehta930/project311/master/img/real_time.png "Near Real Time Data")
 
-## Front-End Results
+## Front End Results
 I have a created a simple Flask app that displays the results from my data pipeline. The app is available at www.sonia.nyc and a video demonstration of the site is available [here] (https://youtu.be/pQgADLRgwkE).
 
 ## How to Use this Repo
