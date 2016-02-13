@@ -2,6 +2,14 @@
 
 This folder contains all the information related to the historical load of the NYC 311 data.
 
+## Table of Contents
+- <a href= "https://github.com/smehta930/project311/blob/master/historical/README.md#dataset">Dataset</a>
+- <a href= "https://github.com/smehta930/project311/blob/master/historical/README.md#processing-the-dataset">Processing the dataset</a>
+- <a href= "https://github.com/smehta930/project311/blob/master/historical/README.md#dataset#migrating-the-data-to-ubuntu">Migrating the data to Ubuntu</a>
+- <a href= "https://github.com/smehta930/project311/blob/master/historical/README.md#create-the-table-in-cassandra">Create the table in Cassandra</a>
+- <a href= "https://github.com/smehta930/project311/blob/master/historical/README.md#processing-the-data-on-pyspark-and-dumping-into-cassandra">Processing the data on Pyspark and dumping into Cassandra</a>
+- <a href= "https://github.com/smehta930/project311/blob/master/historical/README.md#querying-the-data-from-cassandra">Querying the data from Cassandra</a>
+
 ## Dataset
 The full dataset is available [here] (https://nycopendata.socrata.com/Social-Services/311-Service-Requests-from-2010-to-Present/erm2-nwe9/). As of February 2016, the file was around 6.5 GB. There are several formats you can use to download the data, I chose csv.
 
