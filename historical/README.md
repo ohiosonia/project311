@@ -62,7 +62,7 @@ This table feeds the following page on the front-end. It captures which zip code
     total int,
     complaint_type text,
     PRIMARY KEY (complaint_type, total)
-) WITH CLUSTERING ORDER BY (total DESC)`
+) WITH CLUSTERING ORDER BY (total DESC)
 ;`
 
 
