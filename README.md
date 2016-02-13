@@ -5,7 +5,7 @@ This project was a proof of concept to create a data pipeline for my Insight Dat
 I have two streams of data: historical and (near) real-time. After ingesting this data and performing some processing in Spark and Spark Streaming (for historical and real-time, respectively), I use Cassandra as my key-value store. A full diagram of my pipeline is below:
 
 Historical Data: 
-![alt text](https://raw.githubusercontent.com/smehta930/project311/master/flask/app/static/img/historical.png "Historical Data")
+![alt text](https://raw.githubusercontent.com/smehta930/project311/master/historical/historical.png "Historical Data")
 
 
 ## Front-End Results
