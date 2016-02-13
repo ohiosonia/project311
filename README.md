@@ -1,6 +1,11 @@
 # The 411 on the 311
 This project was a proof of concept to create a data pipeline for my Insight Data Engineering project. Specifically, I elected to base this project off of NYC 311 data. For the purposes of this project, the data has been either modified or self-engineered, so the results are fictious.
 
+### This slides that accompany this project are available [here](http://www.slideshare.net/SoniaMehta13/411-on-the-311-data?qid=dc171851-bbbe-4b9b-85c2-2241f0a73f6a&v=&b=&from_search=1).
+
+### The video that demonstrates the functionality of the site is available [here](https://www.youtube.com/watch?v=pQgADLRgwkE&feature=youtu.be).
+
+
 ![alt text](https://raw.githubusercontent.com/smehta930/project311/master/img/homepage.png "Historical Data")
 
 ## Table of Contents
