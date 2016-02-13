@@ -20,6 +20,7 @@ The `spark_streaming.py` script consumes the data created from the producer scri
 
 ## Create Table in Cassandra
 This table feeds the following page on the front-end. It captures the total number of complaints recieved by zipcode, every 30 seconds.
+
 ![alt text](https://raw.githubusercontent.com/smehta930/project311/master/img/current_trends.png "Current Trends")
 
 
