@@ -6,14 +6,13 @@ This project was a proof of concept to create a data pipeline for my Insight Dat
 ## Table of Contents
 - <a href= "https://github.com/smehta930/project311/blob/master/README.md#project-overview">Project Overview</a>
 - <a href= "https://github.com/smehta930/project311/blob/master/README.md#data-architecture">Data Architecture</a>
-- <a href= "https://github.com/smehta930/project311/blob/master/README.md#near-real-time-data">Near Real Time Data</a>
 - <a href= "https://github.com/smehta930/project311/blob/master/README.md#how-to-use-this-repo">How to Use this Repo</a>
 - <a href= "https://github.com/smehta930/project311/blob/master/README.md#front-end-results">Front End Results</a>
 
 ## Project Overview
 I have two streams of data: historical and (near) real-time. After ingesting this data and performing some processing in Spark and Spark Streaming (for historical and real-time, respectively), I use Cassandra as my key-value store. A full diagram of my pipeline is below.
 
-## Data Archictecture
+## Data Architecture
 The following tools were used for this project:
 * Zookeeper
 * Kafka

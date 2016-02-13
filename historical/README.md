@@ -10,9 +10,9 @@ I modified the csv before migrating the data onto Ubuntu. Specifically, I remove
  
 `tail -n +2 311_old_header.csv > 311_no_header.csv` ##Removes the header from the file
 
-`echo "unique_key,created_date,closed_date,agency,agency_name,complaint_type,descriptor,location_type,incident_zip,incident_address,street_name,cross_street_1,cross_street_2,intersection_street_1,intersection_street_2,address_type,city,landmark,facility_type,status,due_date,resolution_description,resolution_action_updated_date,community_board,borough,x_coordinate_state_plane,y_coordinate_state_plane,park_facility_name,park_borough,school_name,school_number,school_region,school_code,school_phone_number,school_address,school_city,school_state,school_zip,school_not_found,school_or_citywide_complaint,vehicle_type,taxi_company_borough,taxi_pick_up_location,bridge_highway_name,bridge_highway_direction,road_ramp,bridge_highway_segment,garage_lot_name,ferry_direction,ferry_terminal_name,latitude,longitude,location" > 311_full.csv` ##Creates a separate file with the header only as the row
+`echo "unique_key,created_date,closed_date,agency,agency_name,complaint_type,descriptor,location_type,incident_zip,incident_address,street_name,cross_street_1,cross_street_2,intersection_street_1,intersection_street_2,address_type,city,landmark,facility_type,status,due_date,resolution_description,resolution_action_updated_date,community_board,borough,x_coordinate_state_plane,y_coordinate_state_plane,park_facility_name,park_borough,school_name,school_number,school_region,school_code,school_phone_number,school_address,school_city,school_state,school_zip,school_not_found,school_or_citywide_complaint,vehicle_type,taxi_company_borough,taxi_pick_up_location,bridge_highway_name,bridge_highway_direction,road_ramp,bridge_highway_segment,garage_lot_name,ferry_direction,ferry_terminal_name,latitude,longitude,location" > 311_full.csv ##Creates a separate file with the header only as the row`
 
-`cat 311_no_header.csv >> 311_full.csv` ##Combines the header only file and the non-header data file
+`cat 311_no_header.csv >> 311_full.csv ##Combines the header only file and the non-header data file`
 
 
 ## Migrating the data to Ubuntu
@@ -22,31 +22,58 @@ After downloading the data to my local machine, I copied the data to my Ubuntu m
 
 ## Copying the data from Ubuntu to HDFS
 Once the data was loaded onto my local machine, I transferred the data to HDFS.I executed the following command to migrate the data from my local Ubuntu folder to HDFS. I elected to use HDFS so that the processing could be done in a distributed manner.
+
 `hdfs dfs -copyFromLocal ~/311data/311_full.csv /311data/311_full.csv`
 
 ## Create the table on Cassandra
-For the historical data, I created three tables within Cassandra.
+For the historical data, I created three tables within Cassandra:
+1. Distinct Complaints (complaint_types)
+2. Types of Calls (types_of_calls)
+3. Neighborhood Awards (awards)
 
-#### Distinct Complaints
-This table was created for exploratory purposes -- to understand the various types of complaints made by residents. 
-'##Types of live_complaints
+#### Distinct Complaints (complaint_types)
+This table was created for exploratory purposes -- to understand the various types of complaints made by residents.
+ 
+`##Types of live_complaints
 CREATE TABLE playground.complaint_types (
     complaint_type text,
     PRIMARY KEY (complaint_type)
 )
-;'
+;`
 
-#### Types of Calls
+#### Types of Calls (types_of_calls)
+This table feeds
+ 
+`CREATE TABLE playground.types_of_calls (
+    incident_zip int,
+    total int,
+    complaint_type text,
+    PRIMARY KEY (incident_zip, total)
+) WITH CLUSTERING ORDER BY (total DESC);`
 
-#### Neighborhood Awards
+#### Neighborhood Awards (awards)
+This table feeds
+
+`CREATE TABLE playground.awards (
+    incident_zip int,
+    total int,
+    complaint_type text,
+    PRIMARY KEY (complaint_type, total)
+) WITH CLUSTERING ORDER BY (total DESC)
+;`
 
 
 ## Processing the data on Pyspark and dumping into Cassandra
+This was done using the SQL Context within PySpark. Using the tables created above, the following scripts processes the data in Spark and outputs it into Cassandra.
 
 #### Distinct Complaints
+Please see the `distinct_complaints.py` file
 
 #### Types of Calls
+Please see the `types_of_calls.py` file
 
 #### Neighborhood Awards
+Please see the `awards_batch.py` file
 
 ## Querying the data from Cassandra
+Once the Spark jobs are complete, the data can be queried from Cassandra using CQL.
